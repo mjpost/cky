@@ -20,7 +20,7 @@
 #include "vindex.h"
 #include "tree.h"
 
-char root_label[] = "S1";
+char root_label[] = "ROOT";
 
 void count_local_trees(const tree tree, vihashl localtree_ht);
 	/* adds local tree counts from local trees in tree to localtree_ht */

@@ -122,13 +122,24 @@ readtree_root(FILE *fp, si_t si)
   if (c == EOF) 
     return NULL;
   else { 
-    tree p, t = NEW_TREE;
+	tree p, t = NEW_TREE;
     assert(c == '(');
     skipspaces(fp);
-    t->label = 1;  /* si_string_index(si, ROOT); */
-    t->sibling = NULL;
-    t->subtrees = p = readtree(fp, si);
-    assert(t->subtrees);		/* tree should be nonempty */
+	t->label = 1;  /* si_string_index(si, ROOT); */
+	t->sibling = NULL;
+
+	/* If a root symbol is given, ignore it in favor of the default.
+	 * Make sure you've called si_string_index() on the root label
+	 * before reading in any trees.
+	 */
+	int nextc = getc(fp);
+	ungetc(nextc, fp);
+	if (nextc != '(') 
+	  readlabel(fp, si);
+
+	t->subtrees = p = readtree(fp, si);
+	assert(t->subtrees);		/* tree should be nonempty */
+
     while (p) {
       p->sibling = readtree(fp, si);
       p = p->sibling;
