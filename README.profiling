@@ -1,0 +1,867 @@
+
+Parsing the first 100 sentences of section 22 using the
+treebank grammar extracted from sections 2-21.
+
+cky tmp.yld 100 f2-21.lt > tmp.prs
+314.635u 2.644s 5:17.57 99.9%   0+0k 0+0io 0pf+0w
+
+ncky tmp.yld 100 f2-21.lt > tmp.prs
+89.157u 5.364s 1:34.68 99.8%    0+0k 0+0io 0pf+0w
+
+
+----------------------------------------------------
+
+PROFILE RESULTS FOR CKY AND NCKY
+
+CFLAGS = -pg -O6 $(GCCFLAGS) -finline-functions -ffast-math -fstrict-aliasing -Wall
+LDFLAGS = -pg 
+
+gprof for cky
+
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 85.34    631.05   631.05      100     6.31     7.33  cky
+  7.28    684.91    53.87 390044844     0.00     0.00  sihashcc_find
+  4.47    717.95    33.03 390042395     0.00     0.00  add_edge
+  1.72    730.64    12.70 30029760     0.00     0.00  sihashbrsit_next
+  0.76    736.29     5.65                             main
+  0.10    737.02     0.72  2080045     0.00     0.00  sihashursit_next
+  0.07    737.52     0.50 48937890     0.00     0.00  mmm_free
+  0.06    737.99     0.47 48900043     0.00     0.00  mmm_malloc
+  0.04    738.30     0.31   417080     0.00     0.00  sihashbrsit_init
+  0.04    738.60     0.29 30446840     0.00     0.00  sihashbrsit_ok
+  0.03    738.84     0.24                             sihashcc_valuep
+  0.02    739.01     0.18   419532     0.00     0.00  sihashurs_ref
+  0.01    739.09     0.07                             chart_entry_display
+  0.01    739.14     0.05   123306     0.00     0.00  strhashsi_find
+  0.01    739.19     0.05        1     0.05     0.16  read_grammar
+  0.01    739.23     0.04    72855     0.00     0.00  follow_unary
+  0.01    739.27     0.04    35255     0.00     0.00  sihashursit_init
+  0.00    739.30     0.04                             brindex_hash
+  0.00    739.34     0.03    37716     0.00     0.00  mmm_calloc
+  0.00    739.36     0.03   100263     0.00     0.00  read_cat
+  0.00    739.38     0.02  2115300     0.00     0.00  sihashursit_ok
+  0.00    739.40     0.02    52827     0.00     0.00  add_brule
+  0.00    739.41     0.01    53068     0.00     0.00  sihashf_find
+  0.00    739.42     0.01    25297     0.00     0.00  sihashbrs_find
+  0.00    739.42     0.00   139259     0.00     0.00  si_index_string
+  0.00    739.42     0.00   123306     0.00     0.00  si_string_index
+  0.00    739.42     0.00    25297     0.00     0.00  brihashbr_find
+  0.00    739.42     0.00      713     0.00     0.00  mmm_realloc
+  0.00    739.42     0.00      241     0.00     0.00  sihashurs_find
+  0.00    739.42     0.00      200     0.00     0.00  bintree_tree_
+  0.00    739.42     0.00      101     0.00     0.00  make_vindex
+  0.00    739.42     0.00      101     0.00     0.00  vindex_free
+  0.00    739.42     0.00      100     0.00     0.00  bintree_tree
+  0.00    739.42     0.00      100     0.00     0.00  free_tree
+  0.00    739.42     0.00      100     0.00     0.00  write_tree
+  0.00    739.42     0.00        1     0.00     0.00  free_grammar
+  0.00    739.42     0.00        1     0.00     0.00  free_sihashbrs
+  0.00    739.42     0.00        1     0.00     0.00  free_sihashurs
+  0.00    739.42     0.00        1     0.00     0.00  make_si
+  0.00    739.42     0.00        1     0.00     0.00  si_free
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.00% of 739.42 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    5.65  733.42                 main [1]
+              631.05  101.70     100/100         cky [2]
+                0.50    0.00 48850445/48937890     mmm_free [7]
+                0.05    0.11       1/1           read_grammar [14]
+                0.00    0.00    2550/100263      read_cat [16]
+                0.00    0.00       1/1           free_sihashbrs [26]
+                0.00    0.00       1/1           si_free [28]
+                0.00    0.00     100/100         free_tree [29]
+                0.00    0.00     100/100         bintree_tree [30]
+                0.00    0.00       1/1           free_grammar [32]
+                0.00    0.00     101/101         make_vindex [34]
+                0.00    0.00     101/101         vindex_free [35]
+                0.00    0.00       1/1           make_si [36]
+                0.00    0.00     263/713         mmm_realloc [39]
+                0.00    0.00     100/100         write_tree [40]
+-----------------------------------------------
+              631.05  101.70     100/100         main [1]
+[2]     99.1  631.05  101.70     100         cky [2]
+               32.98   54.26 389484745/390042395     add_edge [3]
+               12.70    0.00 30029760/30029760     sihashbrsit_next [5]
+                0.72    0.00 2080045/2080045     sihashursit_next [6]
+                0.31    0.00  417080/417080      sihashbrsit_init [9]
+                0.29    0.00 30446840/30446840     sihashbrsit_ok [10]
+                0.04    0.20   72855/72855       follow_unary [12]
+                0.11    0.00  251389/419532      sihashurs_ref [13]
+                0.04    0.00   35255/35255       sihashursit_init [19]
+                0.03    0.00   37704/37716       mmm_calloc [22]
+                0.02    0.00 2115300/2115300     sihashursit_ok [23]
+                0.00    0.00   40253/48900043     mmm_malloc [8]
+                0.00    0.00    2449/390044844     sihashcc_find [4]
+-----------------------------------------------
+                0.05    0.08  557650/390042395     follow_unary [12]
+               32.98   54.26 389484745/390042395     cky [2]
+[3]     11.8   33.03   54.33 390042395         add_edge [3]
+               53.86    0.23 390042395/390044844     sihashcc_find [4]
+                0.23    0.00 24384918/48900043     mmm_malloc [8]
+-----------------------------------------------
+                0.00    0.00    2449/390044844     cky [2]
+               53.86    0.23 390042395/390044844     add_edge [3]
+[4]      7.3   53.87    0.23 390044844         sihashcc_find [4]
+                0.23    0.00 24387367/48900043     mmm_malloc [8]
+-----------------------------------------------
+               12.70    0.00 30029760/30029760     cky [2]
+[5]      1.7   12.70    0.00 30029760         sihashbrsit_next [5]
+-----------------------------------------------
+                0.72    0.00 2080045/2080045     cky [2]
+[6]      0.1    0.72    0.00 2080045         sihashursit_next [6]
+-----------------------------------------------
+                0.00    0.00       1/48937890     strhashsi_find [17]
+                0.00    0.00       1/48937890     free_grammar [32]
+                0.00    0.00       3/48937890     brihashbr_find [27]
+                0.00    0.00       3/48937890     sihashf_find [24]
+                0.00    0.00     101/48937890     vindex_free [35]
+                0.00    0.00     360/48937890     free_sihashurs [33]
+                0.00    0.00    4327/48937890     free_tree [29]
+                0.00    0.00   21303/48937890     si_free [28]
+                0.00    0.00   25442/48937890     free_sihashbrs [26]
+                0.00    0.00   35904/48937890     read_grammar [14]
+                0.50    0.00 48850445/48937890     main [1]
+[7]      0.1    0.50    0.00 48937890         mmm_free [7]
+-----------------------------------------------
+                0.00    0.00       3/48900043     make_si [36]
+                0.00    0.00      59/48900043     sihashurs_find [37]
+                0.00    0.00      72/48900043     sihashbrs_find [25]
+                0.00    0.00     100/48900043     bintree_tree [30]
+                0.00    0.00     202/48900043     make_vindex [34]
+                0.00    0.00     245/48900043     read_grammar [14]
+                0.00    0.00    4327/48900043     bintree_tree_ [31]
+                0.00    0.00   10603/48900043     sihashf_find [24]
+                0.00    0.00   21300/48900043     strhashsi_find [17]
+                0.00    0.00   25297/48900043     brihashbr_find [27]
+                0.00    0.00   25297/48900043     add_brule [21]
+                0.00    0.00   40253/48900043     cky [2]
+                0.23    0.00 24384918/48900043     add_edge [3]
+                0.23    0.00 24387367/48900043     sihashcc_find [4]
+[8]      0.1    0.47    0.00 48900043         mmm_malloc [8]
+-----------------------------------------------
+                0.31    0.00  417080/417080      cky [2]
+[9]      0.0    0.31    0.00  417080         sihashbrsit_init [9]
+-----------------------------------------------
+                0.29    0.00 30446840/30446840     cky [2]
+[10]     0.0    0.29    0.00 30446840         sihashbrsit_ok [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]     0.0    0.24    0.00                 sihashcc_valuep [11]
+-----------------------------------------------
+                0.04    0.20   72855/72855       cky [2]
+[12]     0.0    0.04    0.20   72855         follow_unary [12]
+                0.05    0.08  557650/390042395     add_edge [3]
+                0.07    0.00  168143/419532      sihashurs_ref [13]
+-----------------------------------------------
+                0.07    0.00  168143/419532      follow_unary [12]
+                0.11    0.00  251389/419532      cky [2]
+[13]     0.0    0.18    0.00  419532         sihashurs_ref [13]
+-----------------------------------------------
+                0.05    0.11       1/1           main [1]
+[14]     0.0    0.05    0.11       1         read_grammar [14]
+                0.02    0.03   97713/100263      read_cat [16]
+                0.02    0.01   52827/52827       add_brule [21]
+                0.00    0.02   38106/123306      si_string_index [18]
+                0.01    0.00   53068/53068       sihashf_find [24]
+                0.00    0.00   35904/48937890     mmm_free [7]
+                0.00    0.00       4/37716       mmm_calloc [22]
+                0.00    0.00     245/48900043     mmm_malloc [8]
+                0.00    0.00     241/241         sihashurs_find [37]
+                0.00    0.00  129671/139259      si_index_string [38]
+                0.00    0.00      62/713         mmm_realloc [39]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     0.0    0.07    0.00                 chart_entry_display [15]
+-----------------------------------------------
+                0.00    0.00    2550/100263      main [1]
+                0.02    0.03   97713/100263      read_grammar [14]
+[16]     0.0    0.03    0.03  100263         read_cat [16]
+                0.00    0.03   85200/123306      si_string_index [18]
+-----------------------------------------------
+                0.05    0.00  123306/123306      si_string_index [18]
+[17]     0.0    0.05    0.00  123306         strhashsi_find [17]
+                0.00    0.00   21300/48900043     mmm_malloc [8]
+                0.00    0.00       1/37716       mmm_calloc [22]
+                0.00    0.00       1/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.02   38106/123306      read_grammar [14]
+                0.00    0.03   85200/123306      read_cat [16]
+[18]     0.0    0.00    0.05  123306         si_string_index [18]
+                0.05    0.00  123306/123306      strhashsi_find [17]
+                0.00    0.00       3/713         mmm_realloc [39]
+-----------------------------------------------
+                0.04    0.00   35255/35255       cky [2]
+[19]     0.0    0.04    0.00   35255         sihashursit_init [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     0.0    0.04    0.00                 brindex_hash [20]
+-----------------------------------------------
+                0.02    0.01   52827/52827       read_grammar [14]
+[21]     0.0    0.02    0.01   52827         add_brule [21]
+                0.01    0.00   25297/25297       sihashbrs_find [25]
+                0.00    0.00   25297/25297       brihashbr_find [27]
+                0.00    0.00   25297/48900043     mmm_malloc [8]
+                0.00    0.00     385/713         mmm_realloc [39]
+-----------------------------------------------
+                0.00    0.00       1/37716       make_si [36]
+                0.00    0.00       1/37716       strhashsi_find [17]
+                0.00    0.00       3/37716       brihashbr_find [27]
+                0.00    0.00       3/37716       sihashf_find [24]
+                0.00    0.00       4/37716       read_grammar [14]
+                0.03    0.00   37704/37716       cky [2]
+[22]     0.0    0.03    0.00   37716         mmm_calloc [22]
+-----------------------------------------------
+                0.02    0.00 2115300/2115300     cky [2]
+[23]     0.0    0.02    0.00 2115300         sihashursit_ok [23]
+-----------------------------------------------
+                0.01    0.00   53068/53068       read_grammar [14]
+[24]     0.0    0.01    0.00   53068         sihashf_find [24]
+                0.00    0.00   10603/48900043     mmm_malloc [8]
+                0.00    0.00       3/37716       mmm_calloc [22]
+                0.00    0.00       3/48937890     mmm_free [7]
+-----------------------------------------------
+                0.01    0.00   25297/25297       add_brule [21]
+[25]     0.0    0.01    0.00   25297         sihashbrs_find [25]
+                0.00    0.00      72/48900043     mmm_malloc [8]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[26]     0.0    0.00    0.00       1         free_sihashbrs [26]
+                0.00    0.00   25442/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.00   25297/25297       add_brule [21]
+[27]     0.0    0.00    0.00   25297         brihashbr_find [27]
+                0.00    0.00   25297/48900043     mmm_malloc [8]
+                0.00    0.00       3/37716       mmm_calloc [22]
+                0.00    0.00       3/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[28]     0.0    0.00    0.00       1         si_free [28]
+                0.00    0.00   21303/48937890     mmm_free [7]
+-----------------------------------------------
+                                2798             free_tree [29]
+                0.00    0.00     100/100         main [1]
+[29]     0.0    0.00    0.00     100+2798    free_tree [29]
+                0.00    0.00    4327/48937890     mmm_free [7]
+                                2798             free_tree [29]
+-----------------------------------------------
+                0.00    0.00     100/100         main [1]
+[30]     0.0    0.00    0.00     100         bintree_tree [30]
+                0.00    0.00     200/200         bintree_tree_ [31]
+                0.00    0.00     100/48900043     mmm_malloc [8]
+-----------------------------------------------
+                                9488             bintree_tree_ [31]
+                0.00    0.00     200/200         bintree_tree [30]
+[31]     0.0    0.00    0.00     200+9488    bintree_tree_ [31]
+                0.00    0.00    4327/48900043     mmm_malloc [8]
+                0.00    0.00    5161/139259      si_index_string [38]
+                                9488             bintree_tree_ [31]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[32]     0.0    0.00    0.00       1         free_grammar [32]
+                0.00    0.00       1/1           free_sihashurs [33]
+                0.00    0.00       1/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.00       1/1           free_grammar [32]
+[33]     0.0    0.00    0.00       1         free_sihashurs [33]
+                0.00    0.00     360/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.00     101/101         main [1]
+[34]     0.0    0.00    0.00     101         make_vindex [34]
+                0.00    0.00     202/48900043     mmm_malloc [8]
+-----------------------------------------------
+                0.00    0.00     101/101         main [1]
+[35]     0.0    0.00    0.00     101         vindex_free [35]
+                0.00    0.00     101/48937890     mmm_free [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[36]     0.0    0.00    0.00       1         make_si [36]
+                0.00    0.00       1/37716       mmm_calloc [22]
+                0.00    0.00       3/48900043     mmm_malloc [8]
+-----------------------------------------------
+                0.00    0.00     241/241         read_grammar [14]
+[37]     0.0    0.00    0.00     241         sihashurs_find [37]
+                0.00    0.00      59/48900043     mmm_malloc [8]
+-----------------------------------------------
+                0.00    0.00    4427/139259      write_tree [40]
+                0.00    0.00    5161/139259      bintree_tree_ [31]
+                0.00    0.00  129671/139259      read_grammar [14]
+[38]     0.0    0.00    0.00  139259         si_index_string [38]
+-----------------------------------------------
+                0.00    0.00       3/713         si_string_index [18]
+                0.00    0.00      62/713         read_grammar [14]
+                0.00    0.00     263/713         main [1]
+                0.00    0.00     385/713         add_brule [21]
+[39]     0.0    0.00    0.00     713         mmm_realloc [39]
+-----------------------------------------------
+                                4327             write_tree [40]
+                0.00    0.00     100/100         main [1]
+[40]     0.0    0.00    0.00     100+4327    write_tree [40]
+                0.00    0.00    4427/139259      si_index_string [38]
+                                4327             write_tree [40]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [21] add_brule              [36] make_si                [10] sihashbrsit_ok
+   [3] add_edge               [34] make_vindex             [4] sihashcc_find
+  [30] bintree_tree           [22] mmm_calloc             [11] sihashcc_valuep
+  [31] bintree_tree_           [7] mmm_free               [24] sihashf_find
+  [27] brihashbr_find          [8] mmm_malloc             [37] sihashurs_find
+  [20] brindex_hash           [39] mmm_realloc            [13] sihashurs_ref
+  [15] chart_entry_display    [16] read_cat               [19] sihashursit_init
+   [2] cky                    [14] read_grammar            [6] sihashursit_next
+  [12] follow_unary           [28] si_free                [23] sihashursit_ok
+  [32] free_grammar           [38] si_index_string        [17] strhashsi_find
+  [26] free_sihashbrs         [18] si_string_index        [35] vindex_free
+  [33] free_sihashurs         [25] sihashbrs_find         [40] write_tree
+  [29] free_tree               [9] sihashbrsit_init
+   [1] main                    [5] sihashbrsit_next
+
+----------------------------------------------------
+
+gprof for ncky
+
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 46.45     94.35    94.35      100     0.94     2.03  cky
+ 40.81    177.23    82.88 414443658     0.00     0.00  sihashcc_find
+ 10.72    199.00    21.77 390056291     0.00     0.00  add_edge
+  0.85    200.73     1.73    37704     0.00     0.00  apply_unary
+  0.65    202.05     1.32  2538360     0.00     0.00  sihashbrsit_next
+  0.34    202.74     0.69  2224536     0.00     0.00  sihashursit_next
+  0.07    202.88     0.14   417881     0.00     0.00  sihashurs_ref
+  0.02    202.92     0.04   123306     0.00     0.00  strhashsi_find
+  0.02    202.96     0.04    35255     0.00     0.00  sihashbrsit_init
+  0.01    202.99     0.03        1     0.03     0.11  read_grammar
+  0.01    203.01     0.02    89779     0.00     0.00  follow_unary
+  0.01    203.03     0.02    37704     0.00     0.00  sihashursit_init
+  0.01    203.04     0.01  2573615     0.00     0.00  sihashbrsit_ok
+  0.00    203.06     0.01  2262240     0.00     0.00  sihashursit_ok
+  0.00    203.06     0.01   123306     0.00     0.00  si_string_index
+  0.00    203.07     0.01   100263     0.00     0.00  read_cat
+  0.00    203.09     0.01    53068     0.00     0.00  sihashf_find
+  0.00    203.09     0.01    52827     0.00     0.00  add_brule
+  0.00    203.10     0.01                             brindex_hash
+  0.00    203.10     0.00   168655     0.00     0.00  mmm_free
+  0.00    203.10     0.00   139259     0.00     0.00  si_index_string
+  0.00    203.10     0.00   128259     0.00     0.00  mmm_malloc
+  0.00    203.10     0.00    40265     0.00     0.00  mmm_calloc
+  0.00    203.10     0.00    25297     0.00     0.00  brihashbr_find
+  0.00    203.10     0.00    25297     0.00     0.00  sihashbrs_find
+  0.00    203.10     0.00      713     0.00     0.00  mmm_realloc
+  0.00    203.10     0.00      241     0.00     0.00  sihashurs_find
+  0.00    203.10     0.00      200     0.00     0.00  bintree_tree_
+  0.00    203.10     0.00      101     0.00     0.00  make_vindex
+  0.00    203.10     0.00      101     0.00     0.00  vindex_free
+  0.00    203.10     0.00      100     0.00     0.00  bintree_tree
+  0.00    203.10     0.00      100     0.00     0.00  chart_free
+  0.00    203.10     0.00      100     0.00     0.00  chart_make
+  0.00    203.10     0.00      100     0.00     0.00  free_tree
+  0.00    203.10     0.00      100     0.00     0.00  write_tree
+  0.00    203.10     0.00        1     0.00     0.00  free_grammar
+  0.00    203.10     0.00        1     0.00     0.00  free_sihashbrs
+  0.00    203.10     0.00        1     0.00     0.00  free_sihashurs
+  0.00    203.10     0.00        1     0.00     0.00  make_si
+  0.00    203.10     0.00        1     0.00     0.00  si_free
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.00% of 203.10 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+v[1]    100.0    0.00  203.09                 main [1]
+               94.35  108.64     100/100         cky [2]
+                0.03    0.08       1/1           read_grammar [10]
+                0.00    0.00    2550/100263      read_cat [12]
+                0.00    0.00     263/713         mmm_realloc [27]
+                0.00    0.00     203/168655      mmm_free [21]
+                0.00    0.00     101/101         make_vindex [30]
+                0.00    0.00     101/101         vindex_free [31]
+                0.00    0.00     100/100         bintree_tree [32]
+                0.00    0.00     100/100         write_tree [36]
+                0.00    0.00     100/100         free_tree [35]
+                0.00    0.00     100/100         chart_free [33]
+                0.00    0.00       1/1           make_si [40]
+                0.00    0.00       1/1           free_sihashbrs [38]
+                0.00    0.00       1/1           free_grammar [37]
+                0.00    0.00       1/1           si_free [41]
+-----------------------------------------------
+               94.35  108.64     100/100         main [1]
+[2]     99.9   94.35  108.64     100         cky [2]
+               21.56   82.07 386260661/390056291     add_edge [3]
+                1.73    1.90   37704/37704       apply_unary [5]
+                1.32    0.00 2538360/2538360     sihashbrsit_next [6]
+                0.04    0.00   35255/35255       sihashbrsit_init [14]
+                0.01    0.00 2573615/2573615     sihashbrsit_ok [16]
+                0.00    0.00     100/100         chart_make [34]
+-----------------------------------------------
+                0.03    0.11  494491/390056291     follow_unary [8]
+                0.18    0.70 3301139/390056291     apply_unary [5]
+               21.56   82.07 386260661/390056291     cky [2]
+[3]     51.5   21.77   82.88 390056291         add_edge [3]
+               82.88    0.00 414443658/414443658     sihashcc_find [4]
+                0.00    0.00      54/128259      mmm_malloc [23]
+-----------------------------------------------
+               82.88    0.00 414443658/414443658     add_edge [3]
+[4]     40.8   82.88    0.00 414443658         sihashcc_find [4]
+                0.00    0.00     147/128259      mmm_malloc [23]
+-----------------------------------------------
+                1.73    1.90   37704/37704       cky [2]
+[5]      1.8    1.73    1.90   37704         apply_unary [5]
+                0.18    0.70 3301139/390056291     add_edge [3]
+                0.69    0.00 2224536/2224536     sihashursit_next [7]
+                0.02    0.18   89779/89779       follow_unary [8]
+                0.09    0.00  263842/417881      sihashurs_ref [9]
+                0.02    0.00   37704/37704       sihashursit_init [15]
+                0.01    0.00 2262240/2262240     sihashursit_ok [17]
+-----------------------------------------------
+                1.32    0.00 2538360/2538360     cky [2]
+[6]      0.6    1.32    0.00 2538360         sihashbrsit_next [6]
+-----------------------------------------------
+                0.69    0.00 2224536/2224536     apply_unary [5]
+[7]      0.3    0.69    0.00 2224536         sihashursit_next [7]
+-----------------------------------------------
+                0.02    0.18   89779/89779       apply_unary [5]
+[8]      0.1    0.02    0.18   89779         follow_unary [8]
+                0.03    0.11  494491/390056291     add_edge [3]
+                0.05    0.00  154039/417881      sihashurs_ref [9]
+-----------------------------------------------
+                0.05    0.00  154039/417881      follow_unary [8]
+                0.09    0.00  263842/417881      apply_unary [5]
+[9]      0.1    0.14    0.00  417881         sihashurs_ref [9]
+-----------------------------------------------
+                0.03    0.08       1/1           main [1]
+[10]     0.1    0.03    0.08       1         read_grammar [10]
+                0.01    0.03   97713/100263      read_cat [12]
+                0.00    0.01   38106/123306      si_string_index [11]
+                0.01    0.00   53068/53068       sihashf_find [18]
+                0.01    0.00   52827/52827       add_brule [19]
+                0.00    0.00  129671/139259      si_index_string [22]
+                0.00    0.00   35904/168655      mmm_free [21]
+                0.00    0.00     245/128259      mmm_malloc [23]
+                0.00    0.00     241/241         sihashurs_find [28]
+                0.00    0.00      62/713         mmm_realloc [27]
+                0.00    0.00       4/40265       mmm_calloc [24]
+-----------------------------------------------
+                0.00    0.01   38106/123306      read_grammar [10]
+                0.01    0.03   85200/123306      read_cat [12]
+[11]     0.0    0.01    0.04  123306         si_string_index [11]
+                0.04    0.00  123306/123306      strhashsi_find [13]
+                0.00    0.00       3/713         mmm_realloc [27]
+-----------------------------------------------
+                0.00    0.00    2550/100263      main [1]
+                0.01    0.03   97713/100263      read_grammar [10]
+[12]     0.0    0.01    0.03  100263         read_cat [12]
+                0.01    0.03   85200/123306      si_string_index [11]
+-----------------------------------------------
+                0.04    0.00  123306/123306      si_string_index [11]
+[13]     0.0    0.04    0.00  123306         strhashsi_find [13]
+                0.00    0.00   21300/128259      mmm_malloc [23]
+                0.00    0.00       1/40265       mmm_calloc [24]
+                0.00    0.00       1/168655      mmm_free [21]
+-----------------------------------------------
+                0.04    0.00   35255/35255       cky [2]
+[14]     0.0    0.04    0.00   35255         sihashbrsit_init [14]
+-----------------------------------------------
+                0.02    0.00   37704/37704       apply_unary [5]
+[15]     0.0    0.02    0.00   37704         sihashursit_init [15]
+-----------------------------------------------
+                0.01    0.00 2573615/2573615     cky [2]
+[16]     0.0    0.01    0.00 2573615         sihashbrsit_ok [16]
+-----------------------------------------------
+                0.01    0.00 2262240/2262240     apply_unary [5]
+[17]     0.0    0.01    0.00 2262240         sihashursit_ok [17]
+-----------------------------------------------
+                0.01    0.00   53068/53068       read_grammar [10]
+[18]     0.0    0.01    0.00   53068         sihashf_find [18]
+                0.00    0.00   10603/128259      mmm_malloc [23]
+                0.00    0.00       3/40265       mmm_calloc [24]
+                0.00    0.00       3/168655      mmm_free [21]
+-----------------------------------------------
+                0.01    0.00   52827/52827       read_grammar [10]
+[19]     0.0    0.01    0.00   52827         add_brule [19]
+                0.00    0.00   25297/128259      mmm_malloc [23]
+                0.00    0.00   25297/25297       sihashbrs_find [26]
+                0.00    0.00   25297/25297       brihashbr_find [25]
+                0.00    0.00     385/713         mmm_realloc [27]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     0.0    0.01    0.00                 brindex_hash [20]
+-----------------------------------------------
+                0.00    0.00       1/168655      strhashsi_find [13]
+                0.00    0.00       1/168655      free_grammar [37]
+                0.00    0.00       3/168655      brihashbr_find [25]
+                0.00    0.00       3/168655      sihashf_find [18]
+                0.00    0.00     101/168655      vindex_free [31]
+                0.00    0.00     203/168655      main [1]
+                0.00    0.00     360/168655      free_sihashurs [39]
+                0.00    0.00    4327/168655      free_tree [35]
+                0.00    0.00   21303/168655      si_free [41]
+                0.00    0.00   25442/168655      free_sihashbrs [38]
+                0.00    0.00   35904/168655      read_grammar [10]
+                0.00    0.00   81007/168655      chart_free [33]
+[21]     0.0    0.00    0.00  168655         mmm_free [21]
+-----------------------------------------------
+                0.00    0.00    4427/139259      write_tree [36]
+                0.00    0.00    5161/139259      bintree_tree_ [29]
+                0.00    0.00  129671/139259      read_grammar [10]
+[22]     0.0    0.00    0.00  139259         si_index_string [22]
+-----------------------------------------------
+                0.00    0.00       3/128259      make_si [40]
+                0.00    0.00      54/128259      add_edge [3]
+                0.00    0.00      59/128259      sihashurs_find [28]
+                0.00    0.00      72/128259      sihashbrs_find [26]
+                0.00    0.00     100/128259      bintree_tree [32]
+                0.00    0.00     147/128259      sihashcc_find [4]
+                0.00    0.00     202/128259      make_vindex [30]
+                0.00    0.00     245/128259      read_grammar [10]
+                0.00    0.00    4327/128259      bintree_tree_ [29]
+                0.00    0.00   10603/128259      sihashf_find [18]
+                0.00    0.00   21300/128259      strhashsi_find [13]
+                0.00    0.00   25297/128259      brihashbr_find [25]
+                0.00    0.00   25297/128259      add_brule [19]
+                0.00    0.00   40553/128259      chart_make [34]
+[23]     0.0    0.00    0.00  128259         mmm_malloc [23]
+-----------------------------------------------
+                0.00    0.00       1/40265       make_si [40]
+                0.00    0.00       1/40265       strhashsi_find [13]
+                0.00    0.00       3/40265       brihashbr_find [25]
+                0.00    0.00       3/40265       sihashf_find [18]
+                0.00    0.00       4/40265       read_grammar [10]
+                0.00    0.00   40253/40265       chart_make [34]
+[24]     0.0    0.00    0.00   40265         mmm_calloc [24]
+-----------------------------------------------
+                0.00    0.00   25297/25297       add_brule [19]
+[25]     0.0    0.00    0.00   25297         brihashbr_find [25]
+                0.00    0.00   25297/128259      mmm_malloc [23]
+                0.00    0.00       3/40265       mmm_calloc [24]
+                0.00    0.00       3/168655      mmm_free [21]
+-----------------------------------------------
+                0.00    0.00   25297/25297       add_brule [19]
+[26]     0.0    0.00    0.00   25297         sihashbrs_find [26]
+                0.00    0.00      72/128259      mmm_malloc [23]
+-----------------------------------------------
+                0.00    0.00       3/713         si_string_index [11]
+                0.00    0.00      62/713         read_grammar [10]
+                0.00    0.00     263/713         main [1]
+                0.00    0.00     385/713         add_brule [19]
+[27]     0.0    0.00    0.00     713         mmm_realloc [27]
+-----------------------------------------------
+                0.00    0.00     241/241         read_grammar [10]
+[28]     0.0    0.00    0.00     241         sihashurs_find [28]
+                0.00    0.00      59/128259      mmm_malloc [23]
+-----------------------------------------------
+                                9488             bintree_tree_ [29]
+                0.00    0.00     200/200         bintree_tree [32]
+[29]     0.0    0.00    0.00     200+9488    bintree_tree_ [29]
+                0.00    0.00    5161/139259      si_index_string [22]
+                0.00    0.00    4327/128259      mmm_malloc [23]
+                                9488             bintree_tree_ [29]
+-----------------------------------------------
+                0.00    0.00     101/101         main [1]
+[30]     0.0    0.00    0.00     101         make_vindex [30]
+                0.00    0.00     202/128259      mmm_malloc [23]
+-----------------------------------------------
+                0.00    0.00     101/101         main [1]
+[31]     0.0    0.00    0.00     101         vindex_free [31]
+                0.00    0.00     101/168655      mmm_free [21]
+-----------------------------------------------
+                0.00    0.00     100/100         main [1]
+[32]     0.0    0.00    0.00     100         bintree_tree [32]
+                0.00    0.00     200/200         bintree_tree_ [29]
+                0.00    0.00     100/128259      mmm_malloc [23]
+-----------------------------------------------
+                0.00    0.00     100/100         main [1]
+[33]     0.0    0.00    0.00     100         chart_free [33]
+                0.00    0.00   81007/168655      mmm_free [21]
+-----------------------------------------------
+                0.00    0.00     100/100         cky [2]
+[34]     0.0    0.00    0.00     100         chart_make [34]
+                0.00    0.00   40553/128259      mmm_malloc [23]
+                0.00    0.00   40253/40265       mmm_calloc [24]
+-----------------------------------------------
+                                2798             free_tree [35]
+                0.00    0.00     100/100         main [1]
+[35]     0.0    0.00    0.00     100+2798    free_tree [35]
+                0.00    0.00    4327/168655      mmm_free [21]
+                                2798             free_tree [35]
+-----------------------------------------------
+                                4327             write_tree [36]
+                0.00    0.00     100/100         main [1]
+[36]     0.0    0.00    0.00     100+4327    write_tree [36]
+                0.00    0.00    4427/139259      si_index_string [22]
+                                4327             write_tree [36]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[37]     0.0    0.00    0.00       1         free_grammar [37]
+                0.00    0.00       1/168655      mmm_free [21]
+                0.00    0.00       1/1           free_sihashurs [39]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[38]     0.0    0.00    0.00       1         free_sihashbrs [38]
+                0.00    0.00   25442/168655      mmm_free [21]
+-----------------------------------------------
+                0.00    0.00       1/1           free_grammar [37]
+[39]     0.0    0.00    0.00       1         free_sihashurs [39]
+                0.00    0.00     360/168655      mmm_free [21]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[40]     0.0    0.00    0.00       1         make_si [40]
+                0.00    0.00       3/128259      mmm_malloc [23]
+                0.00    0.00       1/40265       mmm_calloc [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[41]     0.0    0.00    0.00       1         si_free [41]
+                0.00    0.00   21303/168655      mmm_free [21]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [19] add_brule              [35] free_tree               [6] sihashbrsit_next
+   [3] add_edge               [40] make_si                [16] sihashbrsit_ok
+   [5] apply_unary            [30] make_vindex             [4] sihashcc_find
+  [32] bintree_tree           [24] mmm_calloc             [18] sihashf_find
+  [29] bintree_tree_          [21] mmm_free               [28] sihashurs_find
+  [25] brihashbr_find         [23] mmm_malloc              [9] sihashurs_ref
+  [20] brindex_hash           [27] mmm_realloc            [15] sihashursit_init
+  [33] chart_free             [12] read_cat                [7] sihashursit_next
+  [34] chart_make             [10] read_grammar           [17] sihashursit_ok
+   [2] cky                    [41] si_free                [13] strhashsi_find
+   [8] follow_unary           [22] si_index_string        [31] vindex_free
+  [37] free_grammar           [11] si_string_index        [36] write_tree
+  [38] free_sihashbrs         [26] sihashbrs_find
+  [39] free_sihashurs         [14] sihashbrsit_init

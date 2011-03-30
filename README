@@ -1,0 +1,88 @@
+README for cky
+==============
+
+Mark Johnson, 6th March 2006
+
+QUICK START:
+===========
+
+After running "make", try:
+
+lncky demo.yld 0 demo.lt
+
+You should get the following output:
+
+(Start (S (NP (DT the) (NN dog)) (VP (V chases) (NP (DT the) (NN cat)))))
+(Start (S (NP (DT the) (NN cat)) (VP (V likes) (NP (DT the) (NN dog)))))
+(Start (S (NP (DT the) (NN dog)) (VP (V chases) (NP (DT a) (NN dog)) (PP (P in) (NP (DT the) (NN house))))))
+
+
+3/3 = 100% test sentences met the length criteron, of which 3/3 = 100% were parsed
+Sum(-log prob) = 17.3943
+
+NOW READ THIS ENTIRE README FILE
+================================
+
+This directory contains CKY parsers and auxiliary programs written in C.
+I wrote these about 10 years ago, and this README file is being written
+largely from memory, so there may be errors in this file!
+
+Before running make, you should set GCCFLAGS to provide any
+machine-specific compilation flags you need for your machine (they
+really do make a difference in speed). For Pentium4 machines I use
+
+setenv GCCFLAGS "-march=pentium4 -mfpmath=sse -msse2 -mmmx"
+
+and for AMD Opterons I use
+
+setenv GCCFLAGS "-march=opteron"
+
+All of the parsers take a grammar and a file of tokenized input
+terminals as input.  The grammar should contain productions, one per
+line, of the form:
+
+Weight Parent --> Child1 ...
+
+The start or root label for the grammar is the Parent of the first
+production encountered in the grammar.
+
+Weight is a positive floating point number (weights are normalized
+to produce rule probabilities before parsing).
+
+The input consists of a sequence of strings to be parsed, one per
+line.  Each line should consist of a sequence of space-separated
+terminals, where the terminals are terminal symbols of the grammar.
+
+Each of the parsers is run as follows:
+
+cky yieldfile [maxsentlen [grammarfile]]
+
+where each input sentence is read from yieldfile, sentences of
+length greater than maxsentlen are discarded, and the grammar is
+read from grammarfile.
+
+All of the parsers can print out more or less debugging information,
+which is controlled by FILE variables like tracefp, summaryfp,
+parsefp, and probfp.  If these are non-null they should be bound to a
+file pointer, and if they are non-null the program will write the
+relevant information to the file pointed to by that file pointer.
+
+The programs in this directory include:
+
+cky -- A basic CKY parser (the other parsers are elaborations of this)
+
+ncky -- An optimized version of cky (about twice as fast as cky)
+
+lncky -- A version of ncky that assumes that all terminals are introduced
+ by unary productions from preterminals (as in a treebank grammar).  This
+ makes it possible to parse grammars with tens of thousands of terminals.
+
+count-local-trees -- Extracts rules and their counts from a treebank,
+  ignoring terminals
+
+[ I actually haven't used the programs below in years, and I'm not
+  sure if they still work ]
+
+count-trees -- Extracts rules and their counts from a treebank, including
+   terminals (I think)
+
