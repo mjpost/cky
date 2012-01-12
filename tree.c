@@ -134,6 +134,7 @@ readtree_root(FILE *fp, si_t si)
 	 */
 	int nextc = getc(fp);
 	ungetc(nextc, fp);
+
 	if (nextc != '(') 
 	  readlabel(fp, si);
 

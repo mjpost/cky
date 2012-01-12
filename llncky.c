@@ -364,7 +364,7 @@ main(int argc, char **argv)
   grammar	g;
   chart		c;
   vindex 	terms;
-  int		maxsentlen = 0;
+  int		maxsentlen = 100;
   int           parsed_sentences = 0, failed_sentences = 0;
   int           sentfrom = 0, sentto = 0;
   double	sum_neglog_prob = 0;
@@ -429,10 +429,6 @@ main(int argc, char **argv)
   if (! strcmp(argv[optind],"-")) {
 	yieldfp = stdin;
 	from_stdin = 1;
-	/* if ((yieldfp = fopen(stdin, "r")) == NULL) { */
-	/*   fprintf(stderr, "%s: Couldn't read from stdin\n", argv[0]); */
-	/*   exit(EXIT_FAILURE); */
-	/* } */
   } else {  
 	if ((yieldfp = fopen(argv[optind], "r")) == NULL) {
 	  fprintf(stderr, "%s: Couldn't open yieldfile %s\n", argv[0], argv[1]);
@@ -550,7 +546,7 @@ main(int argc, char **argv)
     }
     else { 					/* sentence too long */
       if (parsefp) {
-        fprintf(parsefp, "too_long.\n");
+        fprintf(parsefp, "-inf\t(TOP)\n");
 		fflush(parsefp);
 	  }
     }
