@@ -17,7 +17,7 @@ LDFLAGS = -lm
 # CFLAGS = -pg -O6 $(GCCFLAGS) -finline-functions -ffast-math -fstrict-aliasing -Wall
 # LDFLAGS = -pg 
 
-top: lncky ncky cky count-local-trees tree-preterms # ckyp count-trees count-parses
+all: llncky lncky ncky cky count-local-trees tree-preterms # ckyp count-trees count-parses
 
 f22.pts.yld:
 	zcat ~/research/Penn2/f22.txt.gz | tree-preterms > f22.pts.yld
